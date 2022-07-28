@@ -6,7 +6,10 @@
 const Express = require('express');
 const path = require('path');
 
-/* note routes */
+/* api routes */
+// listening for calls to effect the database
+const api_routes = require('./routes/api-routes');
+// just redirects user to notes.html
 const note_routes = require('./routes/note-routes');
 
 // setting app to Express so I'm not typing it a bunch
@@ -22,7 +25,9 @@ app.use(Express.urlencoded({ extended: true }));
 // this will allow us to pass json to the backend
 app.use(Express.json());
 // linking /api to the api routes from the file
-app.use('/', note_routes);
+app.use('/api', api_routes);
+// linking /notes to the note routes which just redirects to notes.html
+app.use('/notes', note_routes);
 
 app.listen(PORT, () => {
   console.log(`listening on port: ${PORT}`);
